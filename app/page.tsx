@@ -302,7 +302,7 @@ export default function Home() {
           <div className={styles.aboutGrid}>
             <div className={`${styles.aboutImage} scroll-reveal from-left`}>
               <div className={styles.aboutImgWrapper}>
-                <Image src="/ambiance.png" alt="Nani N Granny restaurant ambiance" fill style={{ objectFit: "cover" }} />
+                <Image src="/ambiance.png" alt="Nani N Granny restaurant ambiance" fill style={{ objectFit: "cover" }} loading="lazy" />
               </div>
               <div className={styles.aboutImgAccent}>
                 <span>EST.</span>
@@ -365,16 +365,15 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Menu grid */}
+          {/* Menu list */}
           <div className={styles.menuGrid}>
             {activeItems.map((item) => (
-              <div key={item.name} className={`card ${styles.menuCard}`}>
+              <div key={item.name} className={styles.menuCard}>
                 <div className={styles.menuCardContent}>
                   <div className={styles.menuCardTop}>
-                    <h3 className={styles.menuItemName}>{item.name}</h3>
+                    <span className={styles.menuItemName}>{item.name}</span>
                     <span className={styles.menuItemPrice}>₹{item.price}</span>
                   </div>
-                  <p className={styles.menuItemDesc}>{item.desc}</p>
                   <span className={`badge ${tagConfig[item.tag].cls}`}>{tagConfig[item.tag].label}</span>
                 </div>
               </div>
@@ -404,19 +403,19 @@ export default function Home() {
               <div className={styles.galleryOverlay}><span>The Full Spread</span></div>
             </div>
             <div className={`${styles.galleryItem} scroll-reveal delay-100`}>
-              <Image src="/burger.png" alt="Veg Burger" fill style={{ objectFit: "cover" }} />
+              <Image src="/burger.png" alt="Veg Burger" fill style={{ objectFit: "cover" }} loading="lazy" />
               <div className={styles.galleryOverlay}><span>Burgers</span></div>
             </div>
             <div className={`${styles.galleryItem} scroll-reveal delay-200`}>
-              <Image src="/pizza.png" alt="Veg Pizza" fill style={{ objectFit: "cover" }} />
+              <Image src="/pizza.png" alt="Veg Pizza" fill style={{ objectFit: "cover" }} loading="lazy" />
               <div className={styles.galleryOverlay}><span>Pizzas</span></div>
             </div>
             <div className={`${styles.galleryItem} scroll-reveal delay-300`}>
-              <Image src="/sandwich.png" alt="Veg Sandwich" fill style={{ objectFit: "cover" }} />
+              <Image src="/sandwich.png" alt="Veg Sandwich" fill style={{ objectFit: "cover" }} loading="lazy" />
               <div className={styles.galleryOverlay}><span>Sandwiches</span></div>
             </div>
             <div className={`${styles.galleryItem} scroll-reveal delay-400`}>
-              <Image src="/milkshake.png" alt="Milkshakes" fill style={{ objectFit: "cover" }} />
+              <Image src="/milkshake.png" alt="Milkshakes" fill style={{ objectFit: "cover" }} loading="lazy" />
               <div className={styles.galleryOverlay}><span>Shakes</span></div>
             </div>
           </div>

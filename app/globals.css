@@ -345,3 +345,26 @@ body::before {
     --container-px: 20px;
   }
 }
+
+/* Mobile performance — disable expensive effects on small screens */
+@media (max-width: 640px) {
+  /* Disable noise texture (GPU expensive) */
+  body::before {
+    display: none;
+  }
+
+  /* Reduce animation cost */
+  .scroll-reveal {
+    transition-duration: 0.45s;
+  }
+
+  /* Disable card hover animations */
+  .card {
+    transition: none;
+  }
+
+  /* Simpler scrollbar */
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+}

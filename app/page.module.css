@@ -130,7 +130,7 @@
   position: relative;
   z-index: 1;
   max-width: 720px;
-  padding-top: 100px;
+  padding-top: 120px;
   padding-bottom: 60px;
 }
 
@@ -361,49 +361,63 @@
 }
 
 .menuGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .menuCard {
   cursor: default;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.menuCard:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--color-border-hover);
+  background: rgba(255,255,255,0.02);
 }
 
 .menuCardContent {
-  padding: 24px;
+  padding: 16px 4px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
 }
 
 .menuCardTop {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
 }
 
 .menuItemName {
-  font-family: var(--font-display);
-  font-size: 20px;
-  letter-spacing: 1px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
   color: var(--color-text);
   flex: 1;
 }
 
 .menuItemPrice {
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 20px;
   color: var(--color-accent);
   flex-shrink: 0;
-  text-shadow: 0 0 10px rgba(218,165,32,0.3);
+  text-shadow: none;
 }
 
 .menuItemDesc {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--color-text-muted);
-  line-height: 1.6;
+  line-height: 1.5;
+  display: none;
 }
 
 /* ─── GALLERY ─── */
@@ -614,7 +628,7 @@
   }
 
   .aboutImgWrapper {
-    height: 340px;
+    height: 300px;
   }
 
   .contactGrid {
@@ -622,7 +636,7 @@
   }
 
   .mapWrapper {
-    min-height: 300px;
+    min-height: 280px;
   }
 
   .galleryGrid {
@@ -656,24 +670,138 @@
     z-index: 1000;
   }
 
+  /* Hero mobile fixes */
+  .hero {
+    min-height: auto;
+  }
+
+  .heroContent {
+    padding-top: 100px;
+    padding-bottom: 40px;
+  }
+
+  .heroTitle {
+    font-size: clamp(40px, 12vw, 60px);
+    margin-bottom: 16px;
+  }
+
+  .heroSubtitle {
+    font-size: 14px;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .heroCta {
+    margin-bottom: 36px;
+    gap: 12px;
+  }
+
+  .heroStats {
+    gap: 16px;
+  }
+
+  .statValue {
+    font-size: 24px;
+  }
+
+  .statLabel {
+    font-size: 10px;
+  }
+
+  .heroScroll {
+    display: none;
+  }
+
+  /* Gallery mobile */
   .galleryGrid {
     grid-template-columns: 1fr;
   }
 
-  .heroStats {
-    gap: 24px;
+  .galleryItem {
+    height: 200px;
   }
 
-  .menuGrid {
-    grid-template-columns: 1fr;
-  }
-
+  /* Menu mobile */
   .categoryTabs {
     gap: 6px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .categoryTabs::-webkit-scrollbar {
+    display: none;
   }
 
   .categoryTab {
-    padding: 10px 16px;
-    font-size: 12px;
+    padding: 8px 14px;
+    font-size: 11px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .menuCardContent {
+    padding: 12px 0;
+  }
+
+  .menuItemName {
+    font-size: 14px;
+  }
+
+  .menuItemPrice {
+    font-size: 17px;
+  }
+
+  /* Section headers mobile */
+  .sectionHeader {
+    margin-bottom: 36px;
+  }
+
+  .sectionTitle {
+    font-size: clamp(28px, 8vw, 48px);
+  }
+
+  /* About mobile */
+  .aboutImgWrapper {
+    height: 240px;
+  }
+
+  .aboutTitle {
+    font-size: clamp(28px, 7vw, 48px);
+  }
+
+  .aboutText {
+    font-size: 14px;
+  }
+
+  .aboutTags {
+    gap: 6px;
+  }
+
+  .aboutTag {
+    font-size: 10px;
+    padding: 6px 12px;
+  }
+
+  /* Contact mobile */
+  .contactCard {
+    padding: 16px;
+  }
+
+  .mapWrapper {
+    min-height: 240px;
+  }
+
+  /* Marquee mobile */
+  .marqueeItem {
+    font-size: 14px;
+  }
+
+  /* Footer mobile */
+  .footerInner {
+    padding: 40px 0 24px;
   }
 }
