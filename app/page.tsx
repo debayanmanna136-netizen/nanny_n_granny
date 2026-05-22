@@ -3,6 +3,65 @@ import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./page.module.css";
 
+const FOOD_EMOJIS = ["🍔", "🍕", "🍟", "🥪", "🍜", "🥟", "🌽", "🧆", "🥤", "🌮", "🍰", "🫙"];
+
+interface Particle {
+  id: number;
+  emoji: string;
+  x: number;
+  y: number;
+  size: number;
+  duration: number;
+  delay: number;
+  rotate: number;
+  drift: number;
+}
+
+function FoodParticles() {
+  const [particles, setParticles] = useState<Particle[]>([]);
+
+  useEffect(() => {
+    const rand = (min: number, max: number) => Math.random() * (max - min) + min;
+    setParticles(
+      Array.from({ length: 22 }, (_, i) => ({
+        id: i,
+        emoji: FOOD_EMOJIS[i % FOOD_EMOJIS.length],
+        x: rand(2, 96),
+        y: rand(2, 96),
+        size: rand(14, 26),
+        duration: rand(12, 22),
+        delay: rand(-18, 0),
+        rotate: rand(-20, 20),
+        drift: rand(-14, 14),
+      }))
+    );
+  }, []);
+
+  if (particles.length === 0) return null;
+
+  return (
+    <div className={styles.foodParticles} aria-hidden="true">
+      {particles.map((p) => (
+        <span
+          key={p.id}
+          className={styles.foodParticle}
+          style={{
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            fontSize: `${p.size}px`,
+            animationDuration: `${p.duration}s`,
+            animationDelay: `${p.delay}s`,
+            "--rotate" : `${p.rotate}deg`,
+            "--drift"  : `${p.drift}px`,
+          } as React.CSSProperties}
+        >
+          {p.emoji}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 const menuCategories = [
   {
     id: "sandwiches",
@@ -200,6 +259,9 @@ export default function Home() {
 
   return (
     <>
+      {/* ─── AMBIENT FOOD PARTICLES ─── */}
+      <FoodParticles />
+
       {/* ─── NAVBAR ─── */}
       <nav className={`${styles.navbar} ${navScrolled ? styles.navbarScrolled : ""}`}>
         <div className="container">

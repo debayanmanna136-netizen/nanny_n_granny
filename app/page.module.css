@@ -1,4 +1,53 @@
+/* ─── FOOD PARTICLES ─── */
+.foodParticles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.foodParticle {
+  position: absolute;
+  opacity: 0.065;
+  user-select: none;
+  animation: floatParticle var(--dur, 16s) ease-in-out infinite;
+  filter: blur(0.4px);
+  will-change: transform;
+  line-height: 1;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(var(--rotate, 0deg));
+  }
+  25% {
+    transform: translateY(-16px) translateX(calc(var(--drift, 8px) * 0.5)) rotate(calc(var(--rotate, 0deg) + 6deg));
+  }
+  50% {
+    transform: translateY(-8px) translateX(var(--drift, 8px)) rotate(calc(var(--rotate, 0deg) - 4deg));
+  }
+  75% {
+    transform: translateY(-20px) translateX(calc(var(--drift, 8px) * 0.3)) rotate(calc(var(--rotate, 0deg) + 3deg));
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(var(--rotate, 0deg));
+  }
+}
+
+/* Reduce intensity on mobile */
+@media (max-width: 640px) {
+  .foodParticle {
+    opacity: 0.04;
+  }
+  /* Hide every other particle on mobile via nth-child */
+  .foodParticle:nth-child(even) {
+    display: none;
+  }
+}
+
 /* ─── NAVBAR ─── */
+
 .navbar {
   position: fixed;
   top: 0;
