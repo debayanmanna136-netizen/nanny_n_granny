@@ -171,7 +171,7 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Scroll-reveal via IntersectionObserver
+  // Scroll-reveal via IntersectionObserver — re-triggers every time element enters view
   useEffect(() => {
     const els = document.querySelectorAll(".scroll-reveal");
     const observer = new IntersectionObserver(
@@ -179,7 +179,9 @@ export default function Home() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("revealed");
-            observer.unobserve(entry.target);
+          } else {
+            // Reset so animation replays next time it scrolls into view
+            entry.target.classList.remove("revealed");
           }
         });
       },
@@ -203,10 +205,14 @@ export default function Home() {
         <div className="container">
           <div className={styles.navInner}>
             <a href="#hero" onClick={() => scrollTo("hero")} className={styles.logo}>
-              <Image src="/logo.png" alt="Nani N Granny Logo" width={44} height={44} style={{ borderRadius: '50%', objectFit: 'cover' }} />
-              <span className={styles.logoNani}>NANI</span>
-              <span className={styles.logoDivider}>N</span>
-              <span className={styles.logoGranny}>GRANNY</span>
+              {/* Inline SVG logo — always renders, no caching issues */}
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+                <circle cx="20" cy="20" r="20" fill="#DAA520"/>
+                <text x="20" y="27" textAnchor="middle" fontFamily="'Bebas Neue', sans-serif" fontSize="22" fill="#111" letterSpacing="1">BH</text>
+              </svg>
+              <span className={styles.logoNani}>BITE</span>
+              <span className={styles.logoDivider}>&</span>
+              <span className={styles.logoGranny}>HAUS</span>
             </a>
             <div className={`${styles.navLinks} ${menuOpen ? styles.navLinksOpen : ""}`}>
               {["hero", "about", "menu", "gallery", "contact"].map((id) => (
@@ -215,7 +221,7 @@ export default function Home() {
                 </button>
               ))}
               <a
-                href="tel:+917003267894"
+                href="tel:+15559876543"
                 className="btn-primary"
                 style={{ fontSize: "13px", padding: "12px 24px" }}
               >
@@ -238,12 +244,12 @@ export default function Home() {
       {/* ─── HERO ─── */}
       <section id="hero" className={styles.hero} ref={heroRef}>
         <div className={styles.heroBg}>
-          <Image src="/hero-food.png" alt="Nani N Granny hero food" fill style={{ objectFit: "cover" }} priority />
+          <Image src="/hero-food.png" alt="BITEHAUS hero food" fill style={{ objectFit: "cover" }} priority />
           <div className={styles.heroOverlay} />
         </div>
         <div className="container">
           <div className={styles.heroContent}>
-            <p className="section-label animate-fadeInUp">Hindmotor · Konnagar · West Bengal</p>
+            <p className="section-label animate-fadeInUp">Maple Street · Lakewood · New Jersey</p>
             <h1 className={`${styles.heroTitle} animate-fadeInUp delay-1`}>
               Fast Flavor.<br />
               <span className="gradient-text">No Compromise.</span>
@@ -302,7 +308,7 @@ export default function Home() {
           <div className={styles.aboutGrid}>
             <div className={`${styles.aboutImage} scroll-reveal from-left`}>
               <div className={styles.aboutImgWrapper}>
-                <Image src="/ambiance.png" alt="Nani N Granny restaurant ambiance" fill style={{ objectFit: "cover" }} loading="lazy" />
+                <Image src="/ambiance.png" alt="BITEHAUS restaurant ambiance" fill style={{ objectFit: "cover" }} loading="lazy" />
               </div>
               <div className={styles.aboutImgAccent}>
                 <span>EST.</span>
@@ -316,7 +322,7 @@ export default function Home() {
                 <span className="gradient-text">Cravings & Bold Ideas</span>
               </h2>
               <p className={styles.aboutText}>
-                Nani N Granny wasn&apos;t born in a boardroom — it was forged in the fire of late-night
+                BITEHAUS wasn&apos;t born in a boardroom — it was forged in the fire of late-night
                 cravings and a flat-out refusal to eat boring food. We took the classic diner concept,
                 stripped it bare, and injected it with massive flavor and zero pretense.
               </p>
@@ -365,16 +371,21 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Menu list */}
+          {/* Menu list — minimal elegant layout */}
           <div className={styles.menuGrid}>
-            {activeItems.map((item) => (
-              <div key={item.name} className={styles.menuCard}>
+            {activeItems.map((item, idx) => (
+              <div key={item.name} className={`${styles.menuCard} scroll-reveal`} style={{ transitionDelay: `${(idx % 6) * 0.05}s` }}>
                 <div className={styles.menuCardContent}>
                   <div className={styles.menuCardTop}>
-                    <span className={styles.menuItemName}>{item.name}</span>
-                    <span className={styles.menuItemPrice}>₹{item.price}</span>
+                    <div className={styles.menuCardLeft}>
+                      <span className={styles.menuItemName}>{item.name}</span>
+                      <span className={styles.menuItemDesc}>{item.desc}</span>
+                    </div>
+                    <div className={styles.menuCardRight}>
+                      <span className={styles.menuItemPrice}>₹{item.price}</span>
+                      <span className={`badge ${tagConfig[item.tag].cls}`}>{tagConfig[item.tag].label}</span>
+                    </div>
                   </div>
-                  <span className={`badge ${tagConfig[item.tag].cls}`}>{tagConfig[item.tag].label}</span>
                 </div>
               </div>
             ))}
@@ -399,7 +410,7 @@ export default function Home() {
           </div>
           <div className={styles.galleryGrid}>
             <div className={`${styles.galleryItem} scroll-reveal scale-in`} style={{ gridColumn: "span 2" }}>
-              <Image src="/hero-food.png" alt="Nani N Granny spread" fill style={{ objectFit: "cover" }} />
+              <Image src="/hero-food.png" alt="BITEHAUS spread" fill style={{ objectFit: "cover" }} />
               <div className={styles.galleryOverlay}><span>The Full Spread</span></div>
             </div>
             <div className={`${styles.galleryItem} scroll-reveal delay-100`}>
@@ -444,17 +455,17 @@ export default function Home() {
                 <span className={styles.contactIcon}>📍</span>
                 <div>
                   <h4>Location</h4>
-                  <p>41/15, R.G. Nagar Road, Ward 4</p>
-                  <p>Hindmotor, Konnagar</p>
-                  <p>Hooghly, West Bengal — 712233</p>
+                  <p>82 Maple Street, Suite 1B</p>
+                  <p>Lakewood, NJ</p>
+                  <p>New Jersey — 08701</p>
                 </div>
               </div>
               <div className={`card ${styles.contactCard}`}>
                 <span className={styles.contactIcon}>📞</span>
                 <div>
                   <h4>Phone</h4>
-                  <a href="tel:+917003267894" className={styles.contactLink}>+91 70032 67894</a>
-                  <a href="tel:+918100117894" className={styles.contactLink}>+91 81001 17894</a>
+                  <a href="tel:+15559876543" className={styles.contactLink}>+1 (555) 987-6543</a>
+                  <a href="tel:+15551234567" className={styles.contactLink}>+1 (555) 123-4567</a>
                 </div>
               </div>
               <div className={`card ${styles.contactCard}`}>
@@ -473,20 +484,20 @@ export default function Home() {
                   <h4>Order Online</h4>
                   <div className={styles.deliveryLinks}>
                     <a
-                      href="https://www.swiggy.com"
+                      href="https://www.doordash.com"
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.deliveryBtn}
                     >
-                      Swiggy
+                      DoorDash
                     </a>
                     <a
-                      href="https://www.zomato.com"
+                      href="https://www.ubereats.com"
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.deliveryBtn}
                     >
-                      Zomato
+                      Uber Eats
                     </a>
                   </div>
                 </div>
@@ -496,14 +507,14 @@ export default function Home() {
             {/* Map embed */}
             <div className={styles.mapWrapper}>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.5!2d88.3456!3d22.6789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sNani+N+Granny%2C+Hindmotor!5e0!3m2!1sen!2sin!4v1"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.5!2d-74.1774!3d40.0979!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3b2a1a1a1a1a1%3A0x0!2sLakewood%2C+NJ!5e0!3m2!1sen!2sus!4v1"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Nani N Granny location map"
+                title="BITEHAUS location map"
               />
             </div>
           </div>
@@ -515,9 +526,9 @@ export default function Home() {
         <div className="container">
           <div className={styles.footerInner}>
             <div className={styles.footerLogo}>
-              <span className={styles.logoNani}>NANI</span>
-              <span className={styles.logoDivider}>N</span>
-              <span className={styles.logoGranny}>GRANNY</span>
+              <span className={styles.logoNani}>BITE</span>
+              <span className={styles.logoDivider}>&</span>
+              <span className={styles.logoGranny}>HAUS</span>
               <p>Fast Flavor. No Compromise.</p>
             </div>
             <div className={styles.footerLinks}>
@@ -528,7 +539,7 @@ export default function Home() {
               ))}
             </div>
             <p className={styles.footerCopy}>
-              © {new Date().getFullYear()} Nani N Granny. All rights reserved. 100% Pure Veg 🌿
+              © {new Date().getFullYear()} BITEHAUS. All rights reserved. 100% Pure Veg 🌿
             </p>
           </div>
         </div>

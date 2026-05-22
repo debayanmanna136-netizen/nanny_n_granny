@@ -2,20 +2,20 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Nani N Granny | Fast Flavor. No Compromise. — Hindmotor, Kolkata",
+  title: "BITEHAUS | Fast Flavor. No Compromise. — Lakewood, NJ",
   description:
-    "Nani N Granny is Hindmotor's boldest fast food cafe. Smash burgers, loaded pizzas, gourmet sandwiches & thick milkshakes. Dine-in, takeaway & delivery. Located at 41/15 R.G. Nagar Road, Konnagar.",
+    "BITEHAUS is Lakewood's boldest fast food cafe. Smash burgers, loaded pizzas, gourmet sandwiches & thick milkshakes. Dine-in, takeaway & delivery. Located at 82 Maple Street, Lakewood, NJ.",
   keywords: [
-    "Nani N Granny",
-    "Hindmotor restaurant",
-    "Konnagar fast food",
-    "vegetarian cafe Hooghly",
-    "burger pizza sandwich Hindmotor",
-    "food delivery Konnagar",
+    "BITEHAUS",
+    "Lakewood restaurant",
+    "Lakewood fast food",
+    "vegetarian cafe New Jersey",
+    "burger pizza sandwich Lakewood",
+    "food delivery Lakewood NJ",
   ],
   openGraph: {
-    title: "Nani N Granny | Fast Food Cafe",
-    description: "Bold flavors, zero compromise. Best fast food in Hindmotor, Kolkata.",
+    title: "BITEHAUS | Fast Food Cafe",
+    description: "Bold flavors, zero compromise. Best fast food in Lakewood, NJ.",
     type: "website",
   },
 };
